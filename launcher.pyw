@@ -33,7 +33,7 @@ from pygame.locals import *
 #from OpenGL.GL.shaders import compileShader, compileProgram
 
 logs = [0, ""]
-mute = False
+mute = True 
 # Assets folder stuff
 current_dir = "."
 assets_path = os.path.join(current_dir, 'assets')
@@ -121,7 +121,7 @@ def asspat(): #assets path since i keep asking "Wtf is asspat?" only to remember
 		if sysenv == 1:
 			ass_pat = os.path.join(sys._MEIPASS, "assets")#asspat windows
 		elif sysenv == 2 or sysenv == 3:
-			ass_pat = os.path.join(sys._MEIPASSBASE, "assets")#asspat mac+linux
+			ass_pat = os.path.join(sys._MEIPASS, "assets")#asspat mac+linux
 	elif os.path.exists(os.path.join(".", "assets")):
 		ass_pat = os.path.join(".", "assets")#asspat script
 	else:
@@ -1329,7 +1329,7 @@ def git_clone(src, target, branch="main"):
 	client, path = dulwich_client.get_transport_and_path(src)
 	r = Repo.init(target)
 
-	remote_refs= client.fetch(path, r)
+	remote_refs = client.fetch(path, r)
 	r[b"HEAD"] = remote_refs[f"refs/heads/{branch}".encode()]
 
 	index.build_index_from_tree(r.path, r.index_path(), r.object_store, r[b'HEAD'].tree)
@@ -1422,6 +1422,8 @@ def build_game(return_values):
 
 		if not os.path.exists(os.path.join(smw_dir, ".git")):
 			git_clone("https://github.com/snesrev/smw.git", os.path.join(smw_dir))
+			for file_name in ["smw.sfc"]:
+			   shutil.copy2(os.path.join(install_dir, file_name), os.path.join(smw_dir, file_name))
 			for file_name in ["smb1.zst", "smbll.zst"]: #user provides their own smas.sfc and smw.sfc files.
 			   shutil.copy2(os.path.join(smw_dir, "other", file_name), os.path.join(install_dir, file_name))
 
@@ -1454,6 +1456,9 @@ def build_game(return_values):
 		for file_name in ["smas.sfc"]:
 			if os.path.exists(os.path.join(install_dir, file_name)):
 				shutil.move(os.path.join(install_dir, file_name),os.path.join(launcher_dir, file_name))
+		for file_name in ["smw_assets.dat"]:
+			if os.path.exists(os.path.join(smw_dir, file_name)):
+				shutil.move(os.path.join(smw_dir, file_name),os.path.join(install_dir, file_name))
 	except Exception as e:
 		# Handle exceptions and log the error
 		error_message = f"!!!!!!!!!!!!!!!!!!!!!!!!!vvvvvvvvvv!!!!!!!!!!!!!!!!!!!!!!!!!\nAn error occurred in thread \"build_thread\": \n{str(e)}\n!!!!!!!!!!!!!!!!!!!!!!!!!^^^^^^^^^^!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -2083,7 +2088,7 @@ def main():
 		sys.stdout = sys.__stdout__
 		sys.stderr = sys.__stderr__
 		tee_logger.close() # Close the log file
-		quit()
+		sys.exit(1)
 
 if __name__ == "__main__":
 	main()
