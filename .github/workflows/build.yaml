@@ -17,4 +17,5 @@ jobs:
     - name: Install ${{ matrix.os }} dependencies
       if: runner.os == 'Linux'
       run: |
+        chmod +x ./Install-Dependencies-for-Mac-and-Linux.sh
         ./Install-Dependencies-for-Mac-and-Linux.sh
