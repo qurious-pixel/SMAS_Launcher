@@ -17,7 +17,7 @@ jobs:
       with:
         repository: qurious-pixel/SMAS_Launcher
         ref: patch-1
-    - name: Install ${{ matrix.os }} dependencies
+    - name: Install ${{ runner.os }} dependencies
       if: runner.os == 'Linux'
       run: |
         python -m pip install --upgrade pip
@@ -26,4 +26,8 @@ jobs:
         chmod +x ./create-exe.sh
         ./create-exe.sh
         ls -al dist/
-        
+    - name: Upload ${{ runner.os }} Build
+      uses: actions/upload-artifact@v3
+      with:
+        name: SMAS_LAUNCHER_${{ runner.os }}
+        path: dist/
