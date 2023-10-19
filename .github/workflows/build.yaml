@@ -15,8 +15,8 @@ jobs:
     - name: Checkout Upstream Repo
       uses: actions/checkout@v3
         with:
-        repository: qurious-pixel/SMAS_Launcher
-        ref: patch-1
+          repository: qurious-pixel/SMAS_Launcher
+          ref: patch-1
     - name: Install ${{ matrix.os }} dependencies
       if: runner.os == 'Linux'
       run: |
