@@ -20,6 +20,7 @@ jobs:
     - name: Install ${{ runner.os }} dependencies
       if: runner.os == 'Linux'
       run: |
+        sudo apt install -y python3
         python -m pip install --upgrade pip
         chmod +x ./Install-Dependencies-for-Mac-and-Linux.sh
         ./Install-Dependencies-for-Mac-and-Linux.sh
