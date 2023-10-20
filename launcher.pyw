@@ -1374,8 +1374,11 @@ def build_with_tcc():
 	#stderr, stdout = process.communicate()
 	if sysenv == 1:
 		shutil.copy2(os.path.join(env, "lib", "x64", "SDL2.dll"), cwd)
-		os.chdir(smw_dir)
-		subprocess.run(['python', 'assets/restool.py'])
+		for file_name in ["restool.exe"]:
+			if not os.path.exists(os.path.join(smw_dir, 'restool.exe')):
+				shutil.copy2(os.path.join(asspat(), file_name), os.path.join(smw_dir, file_name))
+		os.chdir(os.path.join(smw_dir))
+		subprocess.run([(os.path.join(smw_dir, 'restool.exe')), '-r', (os.path.join(smw_dir, 'smw.sfc'))])
 
 def rename_files():
 	target_sha1_smw = '6b47bb75d16514b6a476aa0c73a683a2a4c18765'
