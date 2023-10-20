@@ -17,6 +17,10 @@ jobs:
       #with:
       #  repository: qurious-pixel/SMAS_Launcher
       #  ref: patch-1
+
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
         
     - name: Install ${{ runner.os }} dependencies
       if: runner.os != 'Windows'
