@@ -38,9 +38,19 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r win.requirements.txt
         pip install pyinstaller
+        cd assets
+        pyinstaller --onefile --noconsole --clean restool.py
+        cd ..
+        dir assets/
         pyinstaller --onefile --add-data "assets;assets" --icon=assets/icon.ico --clean launcher.pyw
         dir dist/
-        
+
+    - name: Upload ${{ runner.os }} Build
+      uses: actions/upload-artifact@v3
+      with:
+        name: restool
+        path: assets/dist/restool.exe
+      if: runner.os == 'Windows'
     - name: Upload ${{ runner.os }} Build
       uses: actions/upload-artifact@v3
       with:
