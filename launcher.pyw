@@ -33,7 +33,7 @@ from pygame.locals import *
 #from OpenGL.GL.shaders import compileShader, compileProgram
 
 logs = [0, ""]
-mute = True 
+mute = False
 # Assets folder stuff
 current_dir = "."
 assets_path = os.path.join(current_dir, 'assets')
