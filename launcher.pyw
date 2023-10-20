@@ -1375,7 +1375,7 @@ def build_with_tcc():
 	if sysenv == 1:
 		shutil.copy2(os.path.join(env, "lib", "x64", "SDL2.dll"), cwd)
 		os.chdir(smw_dir)
-		subprocess.run(['python3', 'assets/restool.py'])
+		subprocess.run(['python', 'assets/restool.py'])
 
 def rename_files():
 	target_sha1_smw = '6b47bb75d16514b6a476aa0c73a683a2a4c18765'
@@ -1458,9 +1458,6 @@ def build_game(return_values):
 		for file_name in ["smas.sfc"]:
 			if os.path.exists(os.path.join(install_dir, file_name)):
 				shutil.move(os.path.join(install_dir, file_name),os.path.join(launcher_dir, file_name))
-		for file_name in ["smw_assets.dat"]:
-			if os.path.exists(os.path.join(smw_dir, file_name)):
-				shutil.move(os.path.join(smw_dir, file_name),os.path.join(install_dir, file_name))
 	except Exception as e:
 		# Handle exceptions and log the error
 		error_message = f"!!!!!!!!!!!!!!!!!!!!!!!!!vvvvvvvvvv!!!!!!!!!!!!!!!!!!!!!!!!!\nAn error occurred in thread \"build_thread\": \n{str(e)}\n!!!!!!!!!!!!!!!!!!!!!!!!!^^^^^^^^^^!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -1572,7 +1569,11 @@ def makeSMW():
 		for file_name in ["smw"]:
 			if not os.path.exists(os.path.join(install_dir, file_name)):
 				shutil.copy2(os.path.join(smw_dir, file_name), os.path.join(install_dir, file_name))
-
+	
+	for file_name in ["smw_assets.dat"]:
+		if os.path.exists(os.path.join(smw_dir, file_name)):
+			shutil.move(os.path.join(smw_dir, file_name),os.path.join(install_dir, file_name))
+			
 def copy_smasl():
 	src_dir = smasl_dir
 	dst_dir = install_dir
