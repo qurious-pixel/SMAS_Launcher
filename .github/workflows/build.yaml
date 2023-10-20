@@ -42,7 +42,7 @@ jobs:
         pyinstaller --onefile --noconsole --clean restool.py
         cd ..
         dir restool/dist
-        pyinstaller --onefile --add-data "assets;assets" --icon=assets/icon.ico --clean launcher.pyw
+        pyinstaller --onefile --add-data "assets;assets" --icon=assets/icon.ico --add-binary=restool/dist/restool:assets --clean launcher.pyw
         dir dist/
 
     - name: Upload ${{ runner.os }} Build
