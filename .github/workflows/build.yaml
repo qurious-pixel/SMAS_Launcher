@@ -37,7 +37,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python3 -m venv venv
-        source venv/bin/activate
+        venv\Scripts\activate.bat
         pip install -r win.requirements.txt
         pip install pyinstaller
         cd restool
