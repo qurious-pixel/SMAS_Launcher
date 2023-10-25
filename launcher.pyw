@@ -1330,7 +1330,7 @@ def git_clone(src, target, branch="main"):
 	r = Repo.init(target)
 
 	remote_refs = client.fetch(path, r)
-	r[b"HEAD"] = remote_refs[f"refs/heads/{branch}".encode()]
+	r[b"HEAD"] = remote_refs.refs[b"HEAD"]
 
 	index.build_index_from_tree(r.path, r.index_path(), r.object_store, r[b'HEAD'].tree)
 
